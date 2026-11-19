@@ -1,0 +1,102 @@
+name: Publish the API reference
+
+permissions:
+  contents: read
+
+on:
+  # release.yml calls this workflow after bv release, so that every release updates the site.
+  workflow_call:
+  # A run by hand builds the site again, from the releases that exist.
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Build and deploy the site
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pages: write
+      id-token: write # actions/deploy-pages proves the origin of a deployment with an OIDC token.
+    # A run in progress finishes, and only the latest of the runs that wait for it stays in the queue.
+    # A run selects the releases when it starts, so the last run to deploy describes the latest releases.
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      DOTNET_NOLOGO: 'true'
+      DOTNET_CLI_TELEMETRY_OPTOUT: 'true'
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 'true'
+      DOTNET_CLI_UI_LANGUAGE: 'en-US'
+      GH_TOKEN: ${{ github.token }}
+    steps:
+    - name: Set bogus local NuGet package directory (to keep nuget.config formally correct)
+      shell: bash
+      run: echo "NUGET_LOCAL_PACKAGES=$RUNNER_TEMP" >> "$GITHUB_ENV"
+    - name: Checkout repository
+      uses: actions/checkout@v7
+    - name: Setup .NET SDK
+      uses: actions/setup-dotnet@v6
+      with:
+        global-json-file: global.json
+    - name: Restore .NET tools
+      shell: bash
+      run: dotnet tool restore
+    - name: Read the URL of the site
+      id: pages
+      uses: actions/configure-pages@v6
+    # The stable part describes the stable release with the highest version, and the preview part the release with the highest version.
+    # The order is by version and not by date, because a servicing branch releases a lower version after a higher one.
+    # Of two releases with the same numbers, the stable one is the higher.
+    # While the repository has no stable release, both parts describe the release with the highest version.
+    - name: Select the releases
+      id: releases
+      shell: bash
+      run: |
+        gh release list --repo "$GITHUB_REPOSITORY" --limit 1000 --exclude-drafts --json tagName,isPrerelease --jq '
+          if length == 0 then error("The repository has no release to describe.") else . end
+          | sort_by((.tagName | split("-")[0] | split(".") | map(tonumber)) + [if .isPrerelease then 0 else 1 end])
+          | { preview: last, stable: (map(select(.isPrerelease | not)) | last) }
+          | "stable=\((.stable // .preview).tagName)", "preview=\(.preview.tagName)"
+        ' | tee -a "$GITHUB_OUTPUT"
+    - name: Download the packages of the releases
+      shell: bash
+      env:
+        STABLE_RELEASE: ${{ steps.releases.outputs.stable }}
+        PREVIEW_RELEASE: ${{ steps.releases.outputs.preview }}
+      run: |
+        gh release download "$STABLE_RELEASE" --repo "$GITHUB_REPOSITORY" --pattern '*.nupkg' --dir .buildvana-temp/docgen-packages/stable
+        gh release download "$PREVIEW_RELEASE" --repo "$GITHUB_REPOSITORY" --pattern '*.nupkg' --dir .buildvana-temp/docgen-packages/preview
+    # Neither build treats a warning as an error. ci.yml rejects a warning, and a release that predates that check may have some.
+    - name: Build the stable part
+      shell: bash
+      env:
+        BASE_PATH: ${{ steps.pages.outputs.base_path }}/
+        HEADER_LINKS: '[{"text":"Preview release","url":"${{ steps.pages.outputs.base_url }}/preview/"}]'
+      run: >-
+        dotnet Meziantou.DocumentationGenerator build
+        --packages '[{"path":".buildvana-temp/docgen-packages/stable"}]'
+        --output .buildvana-temp/docgen-site
+        --base-path "$BASE_PATH"
+        --site-header-links "$HEADER_LINKS"
+    - name: Build the preview part
+      shell: bash
+      env:
+        BASE_PATH: ${{ steps.pages.outputs.base_path }}/preview/
+        HEADER_LINKS: '[{"text":"Stable release","url":"${{ steps.pages.outputs.base_url }}/"}]'
+      run: >-
+        dotnet Meziantou.DocumentationGenerator build
+        --packages '[{"path":".buildvana-temp/docgen-packages/preview"}]'
+        --output .buildvana-temp/docgen-site/preview
+        --base-path "$BASE_PATH"
+        --site-header-links "$HEADER_LINKS"
+    - name: Upload the site
+      uses: actions/upload-pages-artifact@v5
+      with:
+        path: .buildvana-temp/docgen-site
+    - name: Deploy the site
+      id: deployment
+      uses: actions/deploy-pages@v5
