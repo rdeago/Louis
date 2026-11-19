@@ -13,15 +13,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Struct `Louis.Text.TrueConditionInterpolatedStringHandler` only performs formatting if a given condition is true.
 - Struct `Louis.Text.FalseConditionInterpolatedStringHandler` only performs formatting if a given condition is false.
-- A complete [API reference](docs/README.md) replaces the documentation articles under `docs/`.
-- [`ProcessRunner`](docs/api/Louis/Louis.Processes.ProcessRunner.md), in namespace [`Louis.Processes`](docs/api/Louis/Louis.Processes.md) and in the `net10.0` and `net11.0` builds of `Louis` alone, runs a child process and returns its exit code and output.
-- Property [`Louis.Processes.ConsoleUtility.SystemDefaultEncoding`](docs/api/Louis/Louis.Processes.ConsoleUtility.md) returns the encoding that a new console of the system starts with.
-- Package [`Louis.Testing`](docs/api/Louis.Testing/README.md), for `net10.0` and `net11.0`, has [`FakeProcessRunner`](docs/api/Louis.Testing/Louis.Processes.FakeProcessRunner.md), a test double of `IProcessRunner` that records each run and starts no process.
-- [`StringExtensions.ComputeLineClipping`](docs/api/Louis/Louis.Text.StringExtensions.md) and [`CharReadOnlySpanExtensions.ComputeLineClipping`](docs/api/Louis/Louis.Text.CharReadOnlySpanExtensions.md) find the first and last lines of a text, and count the lines between them.
+- A complete [API reference](https://tenacom.github.io/Louis/preview/), published as a site, replaces the documentation articles under `docs/`.
+- [`ProcessRunner`](https://tenacom.github.io/Louis/preview/api/Louis.Processes.ProcessRunner.html), in namespace [`Louis.Processes`](https://tenacom.github.io/Louis/preview/api/namespaces/Louis.Processes.html) and in the `net10.0` and `net11.0` builds of `Louis` alone, runs a child process and returns its exit code and output.
+- Property [`Louis.Processes.ConsoleUtility.SystemDefaultEncoding`](https://tenacom.github.io/Louis/preview/api/Louis.Processes.ConsoleUtility.html) returns the encoding that a new console of the system starts with.
+- Package [`Louis.Testing`](https://tenacom.github.io/Louis/preview/api/packages/louis.testing.html), for `net10.0` and `net11.0`, has [`FakeProcessRunner`](https://tenacom.github.io/Louis/preview/api/Louis.Processes.FakeProcessRunner.html), a test double of `IProcessRunner` that records each run and starts no process.
+- [`StringExtensions.ComputeLineClipping`](https://tenacom.github.io/Louis/preview/api/Louis.Text.StringExtensions.html) and [`CharReadOnlySpanExtensions.ComputeLineClipping`](https://tenacom.github.io/Louis/preview/api/Louis.Text.CharReadOnlySpanExtensions.html) find the first and last lines of a text, and count the lines between them.
 - L.o.U.I.S. packages have a `net11.0` build, next to the `net10.0` build.
-- [`StringExtensions.ApplyEdits`](docs/api/Louis/Louis.Text.StringExtensions.md) and [`CharReadOnlySpanExtensions.ApplyEdits`](docs/api/Louis/Louis.Text.CharReadOnlySpanExtensions.md) apply a set of edits to a text, where each [`TextEdit`](docs/api/Louis/Louis.Text.TextEdit.md) replaces a range of characters of the original text.
-- [`TextFileUtility.ReadAllText`](docs/api/Louis/Louis.IO.TextFileUtility.md) and `ReadAllTextAsync`, in namespace [`Louis.IO`](docs/api/Louis/Louis.IO.md), return a [`TextFileContent`](docs/api/Louis/Louis.IO.TextFileContent.md) with the text of a file and the encoding to write the file back with.
-- [`TextFileUtility.WriteAllTextIfChanged`](docs/api/Louis/Louis.IO.TextFileUtility.md) and `WriteAllTextIfChangedAsync` write a text to a file, unless the file holds that text already.
+- [`StringExtensions.ApplyEdits`](https://tenacom.github.io/Louis/preview/api/Louis.Text.StringExtensions.html) and [`CharReadOnlySpanExtensions.ApplyEdits`](https://tenacom.github.io/Louis/preview/api/Louis.Text.CharReadOnlySpanExtensions.html) apply a set of edits to a text, where each [`TextEdit`](https://tenacom.github.io/Louis/preview/api/Louis.Text.TextEdit.html) replaces a range of characters of the original text.
+- [`TextFileUtility.ReadAllText`](https://tenacom.github.io/Louis/preview/api/Louis.IO.TextFileUtility.html) and `ReadAllTextAsync`, in namespace [`Louis.IO`](https://tenacom.github.io/Louis/preview/api/namespaces/Louis.IO.html), return a [`TextFileContent`](https://tenacom.github.io/Louis/preview/api/Louis.IO.TextFileContent.html) with the text of a file and the encoding to write the file back with.
+- [`TextFileUtility.WriteAllTextIfChanged`](https://tenacom.github.io/Louis/preview/api/Louis.IO.TextFileUtility.html) and `WriteAllTextIfChangedAsync` write a text to a file, unless the file holds that text already.
 - The `net10.0` and `net11.0` builds of L.o.U.I.S. packages declare compatibility with [native AOT deployment](https://learn.microsoft.com/en-us/dotnet/core/deploying/native-aot/), through the `IsAotCompatible` assembly metadata.
 
 ### Changes to existing features
@@ -29,41 +29,41 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **BREAKING CHANGE**: L.o.U.I.S. packages no longer target .NET 6.0, .NET 7.0, and .NET 8.0, which are out of support, and target .NET 10.0 instead.
 - **BREAKING CHANGE**: L.o.U.I.S. packages no longer target .NET Framework 4.6.2 and .NET Framework 4.7, and target .NET Framework 4.8 instead.
 - **BREAKING CHANGE**: `Louis` no longer depends on [PolyKit](https://github.com/Tenacom/PolyKit), so a project that used its polyfills through `Louis` must add its own polyfill package.
-- **BREAKING CHANGE**: [`DateOnlyExtensions`](docs/api/Louis/Louis.DateOnlyExtensions.md) and [`DateOnlyUtility`](docs/api/Louis/Louis.DateOnlyUtility.md) are no longer available in the `netstandard` and .NET Framework builds of `Louis`, which have no `DateOnly`.
-- **BREAKING CHANGE**: The `default` parameter of the [`FluentExtensions.Switch`](docs/api/Louis/Louis.Fluency.FluentExtensions.md) overloads with `Action<T>` cases is an `Action<T>`, no longer a `FluentAction<T>` whose result the method discarded.
-- **BREAKING CHANGE**: [`AsyncService.StartAndWaitAsync`](docs/api/Louis/Louis.Threading.AsyncService.md) no longer returns `AsyncServiceSetupResult.Faulted`, and throws the exception of `SetupAsync` instead.
-- **BREAKING CHANGE**: [`AsyncHostedService.StartAsync`](docs/api/Louis.Hosting/Louis.Hosting.AsyncHostedService.md) no longer throws `InvalidOperationException` when the setup phase is canceled, and throws `OperationCanceledException` instead.
-- **BREAKING CHANGE**: [`AsyncHostedService.StartAsync`](docs/api/Louis.Hosting/Louis.Hosting.AsyncHostedService.md) no longer throws `InvalidOperationException` when `SetupAsync` throws, and throws the exception of `SetupAsync` instead.
-- **BREAKING CHANGE**: [`StringExtensions.GetLiteralLength`](docs/api/Louis/Louis.Text.StringExtensions.md) and [`CharReadOnlySpanExtensions.GetLiteralLength`](docs/api/Louis/Louis.Text.CharReadOnlySpanExtensions.md) are renamed to `ComputeLiteralLength`.
+- **BREAKING CHANGE**: [`DateOnlyExtensions`](https://tenacom.github.io/Louis/preview/api/Louis.DateOnlyExtensions.html) and [`DateOnlyUtility`](https://tenacom.github.io/Louis/preview/api/Louis.DateOnlyUtility.html) are no longer available in the `netstandard` and .NET Framework builds of `Louis`, which have no `DateOnly`.
+- **BREAKING CHANGE**: The `default` parameter of the [`FluentExtensions.Switch`](https://tenacom.github.io/Louis/preview/api/Louis.Fluency.FluentExtensions.html) overloads with `Action<T>` cases is an `Action<T>`, no longer a `FluentAction<T>` whose result the method discarded.
+- **BREAKING CHANGE**: [`AsyncService.StartAndWaitAsync`](https://tenacom.github.io/Louis/preview/api/Louis.Threading.AsyncService.html) no longer returns `AsyncServiceSetupResult.Faulted`, and throws the exception of `SetupAsync` instead.
+- **BREAKING CHANGE**: [`AsyncHostedService.StartAsync`](https://tenacom.github.io/Louis/preview/api/Louis.Hosting.AsyncHostedService.html) no longer throws `InvalidOperationException` when the setup phase is canceled, and throws `OperationCanceledException` instead.
+- **BREAKING CHANGE**: [`AsyncHostedService.StartAsync`](https://tenacom.github.io/Louis/preview/api/Louis.Hosting.AsyncHostedService.html) no longer throws `InvalidOperationException` when `SetupAsync` throws, and throws the exception of `SetupAsync` instead.
+- **BREAKING CHANGE**: [`StringExtensions.GetLiteralLength`](https://tenacom.github.io/Louis/preview/api/Louis.Text.StringExtensions.html) and [`CharReadOnlySpanExtensions.GetLiteralLength`](https://tenacom.github.io/Louis/preview/api/Louis.Text.CharReadOnlySpanExtensions.html) are renamed to `ComputeLiteralLength`.
 - **BREAKING CHANGE**: `StringExtensions.GetQuotedLiteralLength` and `CharReadOnlySpanExtensions.GetQuotedLiteralLength` are renamed to `ComputeQuotedLiteralLength`.
 - **BREAKING CHANGE**: `StringExtensions.GetVerbatimLiteralLength` and `CharReadOnlySpanExtensions.GetVerbatimLiteralLength` are renamed to `ComputeVerbatimLiteralLength`.
-- **BREAKING CHANGE**: [`Utf8Utility.GetMaxCharsInBytes`](docs/api/Louis/Louis.Text.Utf8Utility.md) is renamed to `ComputeMaxCharsInBytes`.
+- **BREAKING CHANGE**: [`Utf8Utility.GetMaxCharsInBytes`](https://tenacom.github.io/Louis/preview/api/Louis.Text.Utf8Utility.html) is renamed to `ComputeMaxCharsInBytes`.
 - **BREAKING CHANGE**: `Louis.IO.ReadOnlyMemoryStream` is removed, and `System.IO.ReadOnlyMemoryStream` of .NET 11 replaces it.
-- The `netstandard2.0` and .NET Framework builds of `Louis` depend on `Microsoft.Bcl.Memory`, which supplies the `Range` of [`LineClipping`](docs/api/Louis/Louis.Text.LineClipping.md).
-- The `netstandard` and .NET Framework builds of `Louis` depend on `System.Text.Encoding.CodePages`, which supplies the encoding of [`ConsoleUtility.SystemDefaultEncoding`](docs/api/Louis/Louis.Processes.ConsoleUtility.md).
+- The `netstandard2.0` and .NET Framework builds of `Louis` depend on `Microsoft.Bcl.Memory`, which supplies the `Range` of [`LineClipping`](https://tenacom.github.io/Louis/preview/api/Louis.Text.LineClipping.html).
+- The `netstandard` and .NET Framework builds of `Louis` depend on `System.Text.Encoding.CodePages`, which supplies the encoding of [`ConsoleUtility.SystemDefaultEncoding`](https://tenacom.github.io/Louis/preview/api/Louis.Processes.ConsoleUtility.html).
 - L.o.U.I.S. packages depend on version 11.0.0 of `Microsoft.Bcl.AsyncInterfaces`, `Microsoft.Bcl.Memory`, `Microsoft.Extensions.Hosting.Abstractions`, `Microsoft.Extensions.Logging.Abstractions`, and `System.Text.Encoding.CodePages`.
 
 ### Bugs fixed in this release
 
 - The `RangeCheck.InRangeOrDefault` overloads for nullable value types with `acceptNull` returned `defaultValue` for a value in range, and the value otherwise.
-- The [`RangeCheck.Verify`](docs/api/Louis/Louis.RangeCheck.md), `ClampOrNull`, and `InRangeOrDefault` overloads for nullable types skipped the checks on `min`, `max`, and `comparer` for a null `value`.
+- The [`RangeCheck.Verify`](https://tenacom.github.io/Louis/preview/api/Louis.RangeCheck.html), `ClampOrNull`, and `InRangeOrDefault` overloads for nullable types skipped the checks on `min`, `max`, and `comparer` for a null `value`.
 - The `ArgumentNullException` that an extension method throws for a null `this` argument had `@this`, not `this`, as its `ParamName`.
-- The `ArgumentNullException` that [`FluentExtensions.IfElse`](docs/api/Louis/Louis.Fluency.FluentExtensions.md) throws for a null `else` argument had `@else`, not `else`, as its `ParamName`.
-- [`DateUtility.GetDaysFromStartOfWeek`](docs/api/Louis/Louis.DateUtility.md), and the `GetStartOfWeek`, `GetLastDayOfWeek`, and `GetEndOfWeek` extension methods, returned wrong results for a day on or after the first day of the week.
-- [`DateTimeExtensions.GetStartOfWeek`](docs/api/Louis/Louis.DateTimeExtensions.md), `GetLastDayOfWeek`, and `GetEndOfWeek` kept the time of day of their argument, instead of returning midnight or the last tick of the day.
-- When an asynchronous disposal was pending, [`EnumerableExtensions.DisposeAll`](docs/api/Louis/Louis.Collections.EnumerableExtensions.md) and `DisposeAllAsync` lost the exceptions of `Dispose` calls, and threw a `DisposeAsync` exception without the `AggregateException` wrapper.
-- The [`Louis.Text`](docs/api/Louis/Louis.Text.md) methods that build a string literal escaped a control character as `\xHH`, which C# reads together with the hex digits that follow.
-- [`UnicodeCharacterUtility.IsIdentifierStartCharacter`](docs/api/Louis/Louis.Text.UnicodeCharacterUtility.md) returned `false` for a letter number, such as `Ⅰ` (U+2160), so `IsValidIdentifier` rejected an identifier that starts with one.
-- [`Utf8Utility.ComputeMaxCharsInBytes`](docs/api/Louis/Louis.Text.Utf8Utility.md) counted a surrogate pair whose low surrogate is `U+DFFF`, such as the one of `U+10FFFF`, as six bytes instead of four.
+- The `ArgumentNullException` that [`FluentExtensions.IfElse`](https://tenacom.github.io/Louis/preview/api/Louis.Fluency.FluentExtensions.html) throws for a null `else` argument had `@else`, not `else`, as its `ParamName`.
+- [`DateUtility.GetDaysFromStartOfWeek`](https://tenacom.github.io/Louis/preview/api/Louis.DateUtility.html), and the `GetStartOfWeek`, `GetLastDayOfWeek`, and `GetEndOfWeek` extension methods, returned wrong results for a day on or after the first day of the week.
+- [`DateTimeExtensions.GetStartOfWeek`](https://tenacom.github.io/Louis/preview/api/Louis.DateTimeExtensions.html), `GetLastDayOfWeek`, and `GetEndOfWeek` kept the time of day of their argument, instead of returning midnight or the last tick of the day.
+- When an asynchronous disposal was pending, [`EnumerableExtensions.DisposeAll`](https://tenacom.github.io/Louis/preview/api/Louis.Collections.EnumerableExtensions.html) and `DisposeAllAsync` lost the exceptions of `Dispose` calls, and threw a `DisposeAsync` exception without the `AggregateException` wrapper.
+- The [`Louis.Text`](https://tenacom.github.io/Louis/preview/api/namespaces/Louis.Text.html) methods that build a string literal escaped a control character as `\xHH`, which C# reads together with the hex digits that follow.
+- [`UnicodeCharacterUtility.IsIdentifierStartCharacter`](https://tenacom.github.io/Louis/preview/api/Louis.Text.UnicodeCharacterUtility.html) returned `false` for a letter number, such as `Ⅰ` (U+2160), so `IsValidIdentifier` rejected an identifier that starts with one.
+- [`Utf8Utility.ComputeMaxCharsInBytes`](https://tenacom.github.io/Louis/preview/api/Louis.Text.Utf8Utility.html) counted a surrogate pair whose low surrogate is `U+DFFF`, such as the one of `U+10FFFF`, as six bytes instead of four.
 - `Utf8Utility.ComputeMaxCharsInBytes` did not count a high surrogate at the end of the input, even when its three-byte replacement character fit.
-- [`SelfCheck.FailCritically<T>`](docs/api/Louis/Louis.Diagnostics.SelfCheck.md) threw `InternalErrorException` instead of `CriticalInternalErrorException`.
-- [`SelfCheck`](docs/api/Louis/Louis.Diagnostics.SelfCheck.md) messages named `System.Private.CoreLib` or `mscorlib` as the assembly of the failed check, instead of the assembly of the calling method.
-- [`SimpleStringConverter<T>.ConvertTo`](docs/api/Louis/Louis.ComponentModel.SimpleStringConverter_T_.md) overflowed the stack on a conversion to `string`.
-- [`AsyncService.Start`](docs/api/Louis/Louis.Threading.AsyncService.md) and `StartAndWaitAsync` did not throw `InvalidOperationException` when the service had already been started.
-- [`AsyncService.DoneToken`](docs/api/Louis/Louis.Threading.AsyncService.md) was not canceled when the service was stopped before starting.
-- [`AsyncService`](docs/api/Louis/Louis.Threading.AsyncService.md) called both `LogExecuteCompleted` and `LogExecuteCanceled` when `ExecuteAsync` returned after a stop request.
-- [`AsyncService.Start`](docs/api/Louis/Louis.Threading.AsyncService.md) and `StartAndWaitAsync` faulted a task nobody observed when `ExecuteAsync` or `TeardownAsync` threw, which raised `TaskScheduler.UnobservedTaskException`.
-- [`AsyncService`](docs/api/Louis/Louis.Threading.AsyncService.md) threw `ObjectDisposedException` when `DisposeAsync` ran while a failed setup phase was completing.
+- [`SelfCheck.FailCritically<T>`](https://tenacom.github.io/Louis/preview/api/Louis.Diagnostics.SelfCheck.html) threw `InternalErrorException` instead of `CriticalInternalErrorException`.
+- [`SelfCheck`](https://tenacom.github.io/Louis/preview/api/Louis.Diagnostics.SelfCheck.html) messages named `System.Private.CoreLib` or `mscorlib` as the assembly of the failed check, instead of the assembly of the calling method.
+- [`SimpleStringConverter<T>.ConvertTo`](https://tenacom.github.io/Louis/preview/api/Louis.ComponentModel.SimpleStringConverter-1.html) overflowed the stack on a conversion to `string`.
+- [`AsyncService.Start`](https://tenacom.github.io/Louis/preview/api/Louis.Threading.AsyncService.html) and `StartAndWaitAsync` did not throw `InvalidOperationException` when the service had already been started.
+- [`AsyncService.DoneToken`](https://tenacom.github.io/Louis/preview/api/Louis.Threading.AsyncService.html) was not canceled when the service was stopped before starting.
+- [`AsyncService`](https://tenacom.github.io/Louis/preview/api/Louis.Threading.AsyncService.html) called both `LogExecuteCompleted` and `LogExecuteCanceled` when `ExecuteAsync` returned after a stop request.
+- [`AsyncService.Start`](https://tenacom.github.io/Louis/preview/api/Louis.Threading.AsyncService.html) and `StartAndWaitAsync` faulted a task nobody observed when `ExecuteAsync` or `TeardownAsync` threw, which raised `TaskScheduler.UnobservedTaskException`.
+- [`AsyncService`](https://tenacom.github.io/Louis/preview/api/Louis.Threading.AsyncService.html) threw `ObjectDisposedException` when `DisposeAsync` ran while a failed setup phase was completing.
 
 ### Known problems introduced by this release
 

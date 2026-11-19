@@ -7,4 +7,6 @@ It is pronounced _LOO-iss_, just like the name Louis.
 
 This package contains `Louis.Testing.dll`, that provides test doubles of the contracts of L.o.U.I.S., for testing code that depends on them.
 
+The [API reference](https://tenacom.github.io/Louis/) describes every type of L.o.U.I.S.
+
 See [the complete README](https://github.com/Tenacom/Louis#readme) for more information.
