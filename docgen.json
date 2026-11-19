@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "site": { "title": "L.o.U.I.S." },
+  "references": [
+    { "id": "Microsoft.NETCore.App.Ref", "version": "11.0.0" }
+  ]
+}

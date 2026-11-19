@@ -9,6 +9,13 @@
       ],
       "rollForward": false
     },
+    "meziantou.documentationgenerator": {
+      "version": "0.10.10",
+      "commands": [
+        "Meziantou.DocumentationGenerator"
+      ],
+      "rollForward": false
+    },
     "nullable.extended.mcp": {
       "version": "1.19.0",
       "commands": [

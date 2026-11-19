@@ -77,3 +77,13 @@ jobs:
         files: TestResults/*.cobertura.xml
         token: ${{ secrets.CODECOV_GLOBAL_UPLOAD_TOKEN }}
         verbose: true
+    # The generator reads the packages that bv pack left in artifacts/Release, and every warning it reports is an error.
+    # The step comes last, so that a defect of an XML comment does not stop the upload of the coverage reports.
+    - name: Check the API reference
+      if: ${{ matrix.command == 'pack' }}
+      shell: bash
+      run: >-
+        dotnet Meziantou.DocumentationGenerator build
+        --packages '[{"path":"artifacts/Release"}]'
+        --output .buildvana-temp/docgen-site
+        --warnaserror
