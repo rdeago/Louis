@@ -18,7 +18,7 @@ public static class AsyncDisposableExtensions
         /// Disposes an <see cref="IAsyncDisposable"/> synchronously by awaiting the result of <see cref="IAsyncDisposable.DisposeAsync"/>.
         /// </summary>
         /// <remarks>
-        /// <para>The most common use case for this method is add an implementation of <see cref="IDisposable.Dispose"/>
+        /// <para>The most common use case for this method is to add an implementation of <see cref="IDisposable.Dispose"/>
         /// to a type that already implements <see cref="IAsyncDisposable.DisposeAsync"/>, without duplicating any code:</para>
         /// <code>
         ///     public void Dispose() => this.DisposeSynchronously();
