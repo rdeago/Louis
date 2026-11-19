@@ -46,6 +46,25 @@
 *REMOVED*static Louis.Text.StringExtensions.GetVerbatimLiteralLength(this string? this) -> int
 *REMOVED*static Louis.Text.Utf8Utility.GetMaxCharsInBytes(System.ReadOnlySpan<char> chars, int maxBytes) -> int
 *REMOVED*static Louis.Text.Utf8Utility.GetMaxCharsInBytes(string! str, int maxBytes) -> int
+Louis.AsyncDisposableExtensions.extension(System.IAsyncDisposable!)
+Louis.AsyncDisposableExtensions.extension(System.IAsyncDisposable!).DisposeSynchronously() -> void
+Louis.DateTimeExtensions.extension(System.DateTime)
+Louis.DateTimeExtensions.extension(System.DateTime).GetEndOfDay() -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetEndOfMonth() -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetEndOfWeek() -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetEndOfWeek(System.DayOfWeek firstDayOfWeek) -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetEndOfWeek(System.Globalization.CultureInfo! culture) -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetEndOfWeek(System.Globalization.DateTimeFormatInfo! dateTimeFormat) -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetLastDayOfMonth() -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetLastDayOfWeek() -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetLastDayOfWeek(System.DayOfWeek firstDayOfWeek) -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetLastDayOfWeek(System.Globalization.CultureInfo! culture) -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetLastDayOfWeek(System.Globalization.DateTimeFormatInfo! dateTimeFormat) -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetStartOfMonth() -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetStartOfWeek() -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetStartOfWeek(System.DayOfWeek firstDayOfWeek) -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetStartOfWeek(System.Globalization.CultureInfo! culture) -> System.DateTime
+Louis.DateTimeExtensions.extension(System.DateTime).GetStartOfWeek(System.Globalization.DateTimeFormatInfo! dateTimeFormat) -> System.DateTime
 Louis.IO.TextFileContent
 Louis.IO.TextFileContent.Deconstruct(out string! text, out System.Text.Encoding! encoding) -> void
 Louis.IO.TextFileContent.Encoding.get -> System.Text.Encoding!

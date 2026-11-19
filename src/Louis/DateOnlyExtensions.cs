@@ -14,21 +14,25 @@ namespace Louis;
 /// </summary>
 public static partial class DateOnlyExtensions
 {
-    /// <summary>
-    /// Given a date, returns the first day of the same month.
-    /// </summary>
     /// <param name="this">The instance of <see cref="DateOnly"/> on which this method is called.</param>
-    /// <returns>An instance of <see cref="DateOnly"/> whose value represents the first day of the month of <paramref name="this"/>.</returns>
-    public static DateOnly GetStartOfMonth(this DateOnly @this)
-        => @this.AddDays(1 - @this.Day);
+    extension(DateOnly @this)
+    {
+        /// <summary>
+        /// Given a date, returns the first day of the same month.
+        /// </summary>
+        /// <returns>An instance of <see cref="DateOnly"/> whose value represents the first day
+        /// of the month of <paramref name="this"/>.</returns>
+        public DateOnly GetStartOfMonth()
+            => @this.AddDays(1 - @this.Day);
 
-    /// <summary>
-    /// Given a date, returns the last day of the same month.
-    /// </summary>
-    /// <param name="this">The instance of <see cref="DateOnly"/> on which this method is called.</param>
-    /// <returns>An instance of <see cref="DateOnly"/> whose value represents the last day of the month of <paramref name="this"/>.</returns>
-    public static DateOnly GetEndOfMonth(this DateOnly @this)
-        => @this.AddDays(DateTime.DaysInMonth(@this.Year, @this.Month) - @this.Day);
+        /// <summary>
+        /// Given a date, returns the last day of the same month.
+        /// </summary>
+        /// <returns>An instance of <see cref="DateOnly"/> whose value represents the last day
+        /// of the month of <paramref name="this"/>.</returns>
+        public DateOnly GetEndOfMonth()
+            => @this.AddDays(DateTime.DaysInMonth(@this.Year, @this.Month) - @this.Day);
+    }
 }
 
 #endif

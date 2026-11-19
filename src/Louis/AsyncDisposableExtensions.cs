@@ -11,23 +11,26 @@ namespace Louis;
 /// </summary>
 public static class AsyncDisposableExtensions
 {
-    /// <summary>
-    /// Disposes an <see cref="IAsyncDisposable"/> synchronously by awaiting the result of <see cref="IAsyncDisposable.DisposeAsync"/>.
-    /// </summary>
     /// <param name="this">The <see cref="IAsyncDisposable"/> interface on which this method is called.</param>
-    /// <remarks>
-    /// <para>The most common use case for this method is add an implementation of <see cref="IDisposable.Dispose"/>
-    /// to a type that already implements <see cref="IAsyncDisposable.DisposeAsync"/>, without duplicating any code:</para>
-    /// <code>
-    ///     public void Dispose() => this.DisposeSynchronously();
-    /// </code>
-    /// </remarks>
-    public static void DisposeSynchronously(this IAsyncDisposable @this)
+    extension(IAsyncDisposable @this)
     {
-        Guard.IsNotNull(@this, nameof(@this));
+        /// <summary>
+        /// Disposes an <see cref="IAsyncDisposable"/> synchronously by awaiting the result of <see cref="IAsyncDisposable.DisposeAsync"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>The most common use case for this method is add an implementation of <see cref="IDisposable.Dispose"/>
+        /// to a type that already implements <see cref="IAsyncDisposable.DisposeAsync"/>, without duplicating any code:</para>
+        /// <code>
+        ///     public void Dispose() => this.DisposeSynchronously();
+        /// </code>
+        /// </remarks>
+        public void DisposeSynchronously()
+        {
+            Guard.IsNotNull(@this, nameof(@this));
 
 #pragma warning disable CA2012 // Use ValueTasks correctly - This is correct usage because we consume the ValueTask only once.
-        @this.DisposeAsync().GetAwaiter().GetResult();
+            @this.DisposeAsync().GetAwaiter().GetResult();
 #pragma warning restore CA2012 // Use ValueTasks correctly
+        }
     }
 }
