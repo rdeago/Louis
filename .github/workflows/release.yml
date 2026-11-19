@@ -96,7 +96,7 @@ jobs:
         token: ${{ secrets.CODECOV_GLOBAL_UPLOAD_TOKEN }}
         verbose: true
   # The site is built from the assets of the releases, so the job waits for the release to be published.
-  docs:
+  apiref:
     name: Publish the API reference
     needs: release
     # A called workflow gets no permission that the calling job lacks.
@@ -104,4 +104,4 @@ jobs:
       contents: read
       pages: write
       id-token: write
-    uses: ./.github/workflows/docs.yml
+    uses: ./.github/workflows/apiref.yml
