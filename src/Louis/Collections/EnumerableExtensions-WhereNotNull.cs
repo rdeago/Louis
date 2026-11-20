@@ -8,6 +8,7 @@ using CommunityToolkit.Diagnostics;
 
 namespace Louis.Collections;
 
+// Classic extension methods: in blocks, the two overloads get the same anchor from Meziantou.DocumentationGenerator.
 partial class EnumerableExtensions
 {
     /// <summary>
@@ -15,7 +16,8 @@ partial class EnumerableExtensions
     /// </summary>
     /// <typeparam name="T">The type of the elements of <paramref name="this"/>.</typeparam>
     /// <param name="this">An <see cref="IEnumerable{T}"/> to filter.</param>
-    /// <returns>An <see cref="IEnumerable{T}"/> that contains elements from the input sequence that are not <see langword="null"/>.</returns>
+    /// <returns>An <see cref="IEnumerable{T}"/> that contains elements from the input sequence
+    /// that are not <see langword="null"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> @this)
         where T : class
@@ -31,7 +33,8 @@ partial class EnumerableExtensions
     /// </summary>
     /// <typeparam name="T">The type of the elements of <paramref name="this"/>.</typeparam>
     /// <param name="this">An <see cref="IEnumerable{T}"/> to filter.</param>
-    /// <returns>An <see cref="IEnumerable{T}"/> that contains the values of the elements from the input sequence that are not <see langword="null"/>.</returns>
+    /// <returns>An <see cref="IEnumerable{T}"/> that contains the values of the elements from the input sequence
+    /// that are not <see langword="null"/>.</returns>
     /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
     public static IEnumerable<T> WhereNotNull<T>(this IEnumerable<T?> @this)
         where T : struct

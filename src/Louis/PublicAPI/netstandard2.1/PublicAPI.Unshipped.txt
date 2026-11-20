@@ -52,6 +52,14 @@ override Louis.Text.TextEdit.Equals(object? obj) -> bool
 override Louis.Text.TextEdit.GetHashCode() -> int
 Louis.AsyncDisposableExtensions.extension(System.IAsyncDisposable!)
 Louis.AsyncDisposableExtensions.extension(System.IAsyncDisposable!).DisposeSynchronously() -> void
+Louis.Collections.EnumerableExtensions.extension(System.Collections.Generic.IEnumerable<string?>!)
+Louis.Collections.EnumerableExtensions.extension(System.Collections.Generic.IEnumerable<string?>!).WhereNotNullOrEmpty() -> System.Collections.Generic.IEnumerable<string!>!
+Louis.Collections.EnumerableExtensions.extension(System.Collections.Generic.IEnumerable<string?>!).WhereNotNullOrWhiteSpace() -> System.Collections.Generic.IEnumerable<string!>!
+Louis.Collections.EnumerableExtensions.extension(System.Collections.IEnumerable!)
+Louis.Collections.EnumerableExtensions.extension(System.Collections.IEnumerable!).DisposeAll() -> void
+Louis.Collections.EnumerableExtensions.extension(System.Collections.IEnumerable!).DisposeAllAsync() -> System.Threading.Tasks.ValueTask
+Louis.Collections.EnumerableExtensions.extension<T>(System.Collections.Generic.IEnumerable<T>!)
+Louis.Collections.EnumerableExtensions.extension<T>(System.Collections.Generic.IEnumerable<T>!).WhereNot(System.Func<T, bool>! predicate) -> System.Collections.Generic.IEnumerable<T>!
 Louis.DateTimeExtensions.extension(System.DateTime)
 Louis.DateTimeExtensions.extension(System.DateTime).GetEndOfDay() -> System.DateTime
 Louis.DateTimeExtensions.extension(System.DateTime).GetEndOfMonth() -> System.DateTime
