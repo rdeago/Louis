@@ -12,20 +12,23 @@ namespace Louis.Diagnostics;
 /// </summary>
 public static class StringBuilderExtensions
 {
-    /// <summary>
-    /// Appends a text representation of an object to the end of this instance,
-    /// using the same algorithm as <see cref="ExceptionHelper.FormatObject"/>.
-    /// </summary>
     /// <param name="this">The <see cref="StringBuilder"/> on which this method is called.</param>
-    /// <param name="obj">The object to represent. Can be <see langword="null"/>.</param>
-    /// <param name="format">An optional format string to apply if <paramref name="obj"/>
-    /// implements <see cref="IFormattable"/>.</param>
-    /// <returns>A reference to this instance after the append operation has completed..</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
-    public static StringBuilder AppendFormattedObject(this StringBuilder @this, object? obj, string? format = null)
+    extension(StringBuilder @this)
     {
-        Guard.IsNotNull(@this, nameof(@this));
+        /// <summary>
+        /// Appends a text representation of an object to the end of this instance,
+        /// using the same algorithm as <see cref="ExceptionHelper.FormatObject"/>.
+        /// </summary>
+        /// <param name="obj">The object to represent. Can be <see langword="null"/>.</param>
+        /// <param name="format">An optional format string to apply if <paramref name="obj"/>
+        /// implements <see cref="IFormattable"/>.</param>
+        /// <returns>A reference to this instance after the append operation has completed..</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        public StringBuilder AppendFormattedObject(object? obj, string? format = null)
+        {
+            Guard.IsNotNull(@this, nameof(@this));
 
-        return @this.Append(ExceptionHelper.FormatObject(obj, format));
+            return @this.Append(ExceptionHelper.FormatObject(obj, format));
+        }
     }
 }

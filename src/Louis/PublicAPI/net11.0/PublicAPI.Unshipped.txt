@@ -75,6 +75,13 @@ Louis.DateTimeExtensions.extension(System.DateTime).GetStartOfWeek() -> System.D
 Louis.DateTimeExtensions.extension(System.DateTime).GetStartOfWeek(System.DayOfWeek firstDayOfWeek) -> System.DateTime
 Louis.DateTimeExtensions.extension(System.DateTime).GetStartOfWeek(System.Globalization.CultureInfo! culture) -> System.DateTime
 Louis.DateTimeExtensions.extension(System.DateTime).GetStartOfWeek(System.Globalization.DateTimeFormatInfo! dateTimeFormat) -> System.DateTime
+Louis.Diagnostics.ExceptionExtensions.extension(System.Exception!)
+Louis.Diagnostics.ExceptionExtensions.extension(System.Exception!).AnyCausingException(System.Func<System.Exception!, bool>! predicate) -> bool
+Louis.Diagnostics.ExceptionExtensions.extension(System.Exception!).GetCausingExceptions() -> System.Collections.Generic.IEnumerable<System.Exception!>!
+Louis.Diagnostics.ExceptionExtensions.extension(System.Exception!).IsCriticalError() -> bool
+Louis.Diagnostics.ExceptionExtensions.extension(System.Exception!).Rethrow() -> void
+Louis.Diagnostics.StringBuilderExtensions.extension(System.Text.StringBuilder!)
+Louis.Diagnostics.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendFormattedObject(object? obj, string? format = null) -> System.Text.StringBuilder!
 Louis.IO.TextFileContent
 Louis.IO.TextFileContent.Deconstruct(out string! text, out System.Text.Encoding! encoding) -> void
 Louis.IO.TextFileContent.Encoding.get -> System.Text.Encoding!

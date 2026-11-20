@@ -10,22 +10,25 @@ namespace Louis.Diagnostics;
 
 partial class ExceptionExtensions
 {
-    /// <summary>
-    /// Rethrows an exception, preserving the original stack trace. This method never returns.
-    /// </summary>
-    /// <param name="this">The exception to rethrow.</param>
-    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
-    [DoesNotReturn]
-#pragma warning disable CS8763 // A method marked [DoesNotReturn] should not return - ExceptionDispatchInfo.Throw has no DoesNotReturn.
-    public static void Rethrow(this Exception @this)
+    /// <param name="this">The <see cref="Exception"/> on which this method is called.</param>
+    extension(Exception @this)
     {
-        Guard.IsNotNull(@this, nameof(@this));
+        /// <summary>
+        /// Rethrows an exception, preserving the original stack trace. This method never returns.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        [DoesNotReturn]
+#pragma warning disable CS8763 // A method marked [DoesNotReturn] should not return - ExceptionDispatchInfo.Throw has no DoesNotReturn.
+        public void Rethrow()
+        {
+            Guard.IsNotNull(@this, nameof(@this));
 
 #if NETSTANDARD2_1_OR_GREATER || NETCOREAPP2_0_OR_GREATER
-        ExceptionDispatchInfo.Throw(@this);
+            ExceptionDispatchInfo.Throw(@this);
 #else
-        ExceptionDispatchInfo.Capture(@this).Throw();
+            ExceptionDispatchInfo.Capture(@this).Throw();
 #endif
-    }
+        }
 #pragma warning restore CS8763 // A method marked [DoesNotReturn] should not return
+    }
 }
