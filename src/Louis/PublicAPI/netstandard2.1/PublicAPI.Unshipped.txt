@@ -84,6 +84,48 @@ Louis.Diagnostics.ExceptionExtensions.extension(System.Exception!).IsCriticalErr
 Louis.Diagnostics.ExceptionExtensions.extension(System.Exception!).Rethrow() -> void
 Louis.Diagnostics.StringBuilderExtensions.extension(System.Text.StringBuilder!)
 Louis.Diagnostics.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendFormattedObject(object? obj, string? format = null) -> System.Text.StringBuilder!
+Louis.Fluency.FluentExtensions.extension<T>(T)
+Louis.Fluency.FluentExtensions.extension<T>(T).Chain(Louis.Fluency.FluentAction<T>! func) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Chain<TArg1, TArg2, TArg3, TArg4>(TArg1 arg1, TArg2 arg2, TArg3 arg3, TArg4 arg4, Louis.Fluency.FluentAction<T, TArg1, TArg2, TArg3, TArg4>! func) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Chain<TArg1, TArg2, TArg3>(TArg1 arg1, TArg2 arg2, TArg3 arg3, Louis.Fluency.FluentAction<T, TArg1, TArg2, TArg3>! func) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Chain<TArg1, TArg2>(TArg1 arg1, TArg2 arg2, Louis.Fluency.FluentAction<T, TArg1, TArg2>! func) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Chain<TArg>(TArg arg, Louis.Fluency.FluentAction<T, TArg>! func) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).ForEach<TElement>(System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement, int>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).ForEach<TElement>(System.Collections.Generic.IEnumerable<TElement>! sequence, Louis.Fluency.FluentAction<T, TElement>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).ForEach<TElement>(System.Collections.Generic.IEnumerable<TElement>! sequence, System.Action<T, TElement, int>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).ForEach<TElement>(System.Collections.Generic.IEnumerable<TElement>! sequence, System.Action<T, TElement>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).ForEach<TElement>(System.ReadOnlySpan<TElement> span, Louis.Fluency.FluentAction<T, TElement, int>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).ForEach<TElement>(System.ReadOnlySpan<TElement> span, Louis.Fluency.FluentAction<T, TElement>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).ForEach<TElement>(System.ReadOnlySpan<TElement> span, System.Action<T, TElement, int>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).ForEach<TElement>(System.ReadOnlySpan<TElement> span, System.Action<T, TElement>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).If(bool condition, Louis.Fluency.FluentAction<T>! then) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).If(bool condition, System.Action<T>! then) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).IfElse(bool condition, Louis.Fluency.FluentAction<T>! then, Louis.Fluency.FluentAction<T>! else) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).IfElse(bool condition, System.Action<T>! then, System.Action<T>! else) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).IfNotNull<T1>(T1? arg, Louis.Fluency.FluentAction<T, T1!>! then) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).IfNotNull<T1>(T1? arg, Louis.Fluency.FluentAction<T, T1>! then) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).IfNotNull<T1>(T1? arg, System.Action<T, T1!>! then) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).IfNotNull<T1>(T1? arg, System.Action<T, T1>! then) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).IfNotNullOrEmpty(string? arg, Louis.Fluency.FluentAction<T, string!>! then) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).IfNotNullOrEmpty(string? arg, System.Action<T, string!>! then) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Invoke(System.Action<T>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Invoke<TArg1, TArg2, TArg3, TArg4>(TArg1 arg1, TArg2 arg2, TArg3 arg3, TArg4 arg4, System.Action<T, TArg1, TArg2, TArg3, TArg4>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Invoke<TArg1, TArg2, TArg3>(TArg1 arg1, TArg2 arg2, TArg3 arg3, System.Action<T, TArg1, TArg2, TArg3>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Invoke<TArg1, TArg2>(TArg1 arg1, TArg2 arg2, System.Action<T, TArg1, TArg2>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Invoke<TArg>(TArg arg, System.Action<T, TArg>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).InvokeIf(bool condition, System.Action<T>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).InvokeIf<TArg1, TArg2, TArg3, TArg4>(bool condition, TArg1 arg1, TArg2 arg2, TArg3 arg3, TArg4 arg4, System.Action<T, TArg1, TArg2, TArg3, TArg4>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).InvokeIf<TArg1, TArg2, TArg3>(bool condition, TArg1 arg1, TArg2 arg2, TArg3 arg3, System.Action<T, TArg1, TArg2, TArg3>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).InvokeIf<TArg1, TArg2>(bool condition, TArg1 arg1, TArg2 arg2, System.Action<T, TArg1, TArg2>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).InvokeIf<TArg>(bool condition, TArg arg, System.Action<T, TArg>! action) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Switch<TValue>(System.Collections.Generic.IEqualityComparer<TValue>! comparer, TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Switch<TValue>(System.Collections.Generic.IEqualityComparer<TValue>! comparer, TValue value, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Switch<TValue>(System.Collections.Generic.IEqualityComparer<TValue>! comparer, TValue value, params (TValue Comparand, System.Action<T>? Action)[]! cases) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Switch<TValue>(System.Collections.Generic.IEqualityComparer<TValue>! comparer, TValue value, System.Action<T>? default, params (TValue Comparand, System.Action<T>? Action)[]! cases) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Switch<TValue>(TValue value, Louis.Fluency.FluentAction<T>? default, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Switch<TValue>(TValue value, params (TValue Comparand, Louis.Fluency.FluentAction<T>? Action)[]! cases) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Switch<TValue>(TValue value, params (TValue Comparand, System.Action<T>? Action)[]! cases) -> T
+Louis.Fluency.FluentExtensions.extension<T>(T).Switch<TValue>(TValue value, System.Action<T>? default, params (TValue Comparand, System.Action<T>? Action)[]! cases) -> T
 Louis.IO.TextFileContent
 Louis.IO.TextFileContent.Deconstruct(out string! text, out System.Text.Encoding! encoding) -> void
 Louis.IO.TextFileContent.Encoding.get -> System.Text.Encoding!
