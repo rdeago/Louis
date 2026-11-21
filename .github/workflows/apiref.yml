@@ -70,29 +70,52 @@ jobs:
       run: |
         gh release download "$STABLE_RELEASE" --repo "$GITHUB_REPOSITORY" --pattern '*.nupkg' --dir .buildvana-temp/docgen-packages/stable
         gh release download "$PREVIEW_RELEASE" --repo "$GITHUB_REPOSITORY" --pattern '*.nupkg' --dir .buildvana-temp/docgen-packages/preview
+    # A part describes one release in full: the API of its packages, and the pages of its tag.
+    # Each part therefore takes docgen.json and the pages under docs/ from the tag of its release.
+    - name: Checkout the stable release
+      uses: actions/checkout@v7
+      with:
+        ref: ${{ steps.releases.outputs.stable }}
+        path: .buildvana-temp/docgen-sources/stable
+    - name: Checkout the preview release
+      uses: actions/checkout@v7
+      with:
+        ref: ${{ steps.releases.outputs.preview }}
+        path: .buildvana-temp/docgen-sources/preview
+    # The stable part is the site directory, and the preview part its preview subdirectory.
     # Neither build treats a warning as an error. ci.yml rejects a warning, and a release that predates that check may have some.
-    - name: Build the stable part
+    # A release that predates docgen.json gets the docgen.json and the pages of the checkout of this run.
+    # The generator resolves a path of the command line against the directory of docgen.json, except the output path,
+    # so the path of the packages is absolute.
+    # A collection on the command line replaces the whole collection of docgen.json.
+    # Each build therefore passes the header links of docgen.json, followed by the link to the other part.
+    # jq reads docgen.json, so the file holds no comment.
+    - name: Build the site
       shell: bash
       env:
-        BASE_PATH: ${{ steps.pages.outputs.base_path }}/
-        HEADER_LINKS: '[{"text":"Preview release","url":"${{ steps.pages.outputs.base_url }}/preview/"}]'
-      run: >-
-        dotnet Meziantou.DocumentationGenerator build
-        --packages '[{"path":".buildvana-temp/docgen-packages/stable"}]'
-        --output .buildvana-temp/docgen-site
-        --base-path "$BASE_PATH"
-        --site-header-links "$HEADER_LINKS"
-    - name: Build the preview part
-      shell: bash
-      env:
-        BASE_PATH: ${{ steps.pages.outputs.base_path }}/preview/
-        HEADER_LINKS: '[{"text":"Stable release","url":"${{ steps.pages.outputs.base_url }}/"}]'
-      run: >-
-        dotnet Meziantou.DocumentationGenerator build
-        --packages '[{"path":".buildvana-temp/docgen-packages/preview"}]'
-        --output .buildvana-temp/docgen-site/preview
-        --base-path "$BASE_PATH"
-        --site-header-links "$HEADER_LINKS"
+        BASE_PATH: ${{ steps.pages.outputs.base_path }}
+        BASE_URL: ${{ steps.pages.outputs.base_url }}
+      run: |
+        # Arguments: the part, its subdirectory in the site, the text of the link to the other part, and the subdirectory of the other part.
+        build_part() {
+          local sources=".buildvana-temp/docgen-sources/$1"
+          if [[ ! -f "$sources/docgen.json" ]]; then
+            sources=.
+          fi
+
+          local header_links
+          header_links="$(OTHER_TEXT="$3" OTHER_URL="$BASE_URL/${4:+$4/}" \
+            jq -c '.site.headerLinks + [{text: env.OTHER_TEXT, url: env.OTHER_URL}]' "$sources/docgen.json")"
+          dotnet Meziantou.DocumentationGenerator build \
+            --config "$sources/docgen.json" \
+            --packages "[{\"path\":\"$GITHUB_WORKSPACE/.buildvana-temp/docgen-packages/$1\"}]" \
+            --output ".buildvana-temp/docgen-site${2:+/$2}" \
+            --base-path "$BASE_PATH/${2:+$2/}" \
+            --site-header-links "$header_links"
+        }
+
+        build_part stable '' 'Preview release' preview
+        build_part preview preview 'Stable release' ''
     - name: Upload the site
       uses: actions/upload-pages-artifact@v5
       with:

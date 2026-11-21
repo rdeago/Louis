@@ -40,8 +40,8 @@ It is pronounced _LOO-iss_, like the name Louis.
 
 ## Documentation
 
-The [API reference](https://tenacom.github.io/Louis/) describes every type of the L.o.U.I.S. packages.
-The [documentation index](docs/README.md) links the page of each namespace.
+The [API reference](https://tenacom.github.io/Louis/) describes every type of the L.o.U.I.S. packages, as of the stable release with the highest version.
+Its [preview part](https://tenacom.github.io/Louis/preview/) describes the release with the highest version, stable or prerelease.
 
 [CHANGELOG.md](CHANGELOG.md) lists the changes of each release.
 

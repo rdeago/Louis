@@ -23,7 +23,7 @@
     <File Path="THIRD-PARTY-NOTICES.md" />
   </Folder>
   <Folder Name="/- Documentation/docs/">
-    <File Path="docs/README.md" />
+    <File Path="docs/index.md" />
   </Folder>
   <Folder Name="/- Documentation/graphics/">
     <File Path="graphics/README.md" />

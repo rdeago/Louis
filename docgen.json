@@ -1,6 +1,24 @@
 {
+  "$schema": "https://raw.githubusercontent.com/meziantou/Meziantou.DocumentationGenerator/main/schema/docgen.schema.json",
   "version": 1,
-  "site": { "title": "L.o.U.I.S." },
+  "site": {
+    "title": "L.o.U.I.S.",
+    "description": "Documentation of L.o.U.I.S., a collection of general-purpose types for .NET libraries and applications.",
+    "url": "https://tenacom.github.io",
+    "homeTitle": "Introduction",
+    "logo": "graphics/docs/logo.svg",
+    "favicon": "graphics/docs/favicon.ico",
+    "socialImage": "graphics/SocialCard.png",
+    "footer": "Copyright © Tenacom and contributors. Licensed under the MIT license.",
+    "headerLinks": [
+      { "text": "GitHub", "url": "https://github.com/Tenacom/Louis" },
+      { "text": "NuGet", "url": "https://www.nuget.org/packages?q=Louis+owner%3Atenacom.it" }
+    ]
+  },
+  "content": {
+    "root": "docs",
+    "editUrl": "https://github.com/Tenacom/Louis/edit/main/docs/{path}"
+  },
   "references": [
     { "id": "Microsoft.NETCore.App.Ref", "version": "11.0.0" }
   ]
