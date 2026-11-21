@@ -27,7 +27,12 @@ partial class CharReadOnlySpanExtensions
         /// <para>A line ends at a line feed (<c>\n</c>), at a carriage return (<c>\r</c>), at a CR-LF pair
         /// (<c>\r\n</c>), or at the end of the span, as in <see cref="System.IO.TextReader.ReadLine"/>.</para>
         /// <para>A line terminator at the end of the span does not start a new line.</para>
-        /// <para>An empty span has no lines.</para>
+        /// <para>A blank line is a line that is empty, or holds white-space characters alone,
+        /// as <see cref="char.IsWhiteSpace(char)"/> defines them.
+        /// This method ignores the blank lines at the start and at the end of the span,
+        /// and the rest of these remarks does not count them among the lines of the span.
+        /// A blank line between two other lines is not ignored.</para>
+        /// <para>An empty span and a span of blank lines alone have no lines.</para>
         /// <para>A span of more than (<paramref name="headLines"/> + <paramref name="tailLines"/> + 1) lines is clipped:
         /// <see cref="LineClipping.Head"/> holds its first <paramref name="headLines"/> lines,
         /// and <see cref="LineClipping.Tail"/> its last <paramref name="tailLines"/> lines.
@@ -43,15 +48,22 @@ partial class CharReadOnlySpanExtensions
             Guard.IsGreaterThanOrEqualTo(headLines, 0);
             Guard.IsGreaterThanOrEqualTo(tailLines, 0);
 
-            var headEnd = 0;
-            var headLineCount = 0;
-            while (headLineCount < headLines && headEnd < @this.Length)
+            var start = FindStartOfFirstNonBlankLine(@this);
+            if (start < 0)
             {
-                headEnd += FindEndOfFirstLine(@this[headEnd..]);
+                return default;
+            }
+
+            var end = FindEndOfLastNonBlankLine(@this);
+            var headEnd = start;
+            var headLineCount = 0;
+            while (headLineCount < headLines && headEnd < end)
+            {
+                headEnd += FindEndOfFirstLine(@this[headEnd..end]);
                 headLineCount++;
             }
 
-            var tailStart = @this.Length;
+            var tailStart = end;
             var tailLineCount = 0;
             while (tailLineCount < tailLines && tailStart > headEnd)
             {
@@ -71,10 +83,10 @@ partial class CharReadOnlySpanExtensions
             if (omittedLineCount <= 1)
             {
                 var lineCount = headLineCount + omittedLineCount + tailLineCount;
-                return new(new(0, @this.Length), new(@this.Length, @this.Length), lineCount, 0, 0);
+                return new(new(start, end), new(end, end), lineCount, 0, 0);
             }
 
-            return new(new(0, headEnd), new(tailStart, @this.Length), headLineCount, tailLineCount, omittedLineCount);
+            return new(new(start, headEnd), new(tailStart, end), headLineCount, tailLineCount, omittedLineCount);
         }
     }
 }

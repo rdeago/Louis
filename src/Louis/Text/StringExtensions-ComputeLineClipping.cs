@@ -25,7 +25,12 @@ partial class StringExtensions
         /// <para>A line ends at a line feed (<c>\n</c>), at a carriage return (<c>\r</c>), at a CR-LF pair
         /// (<c>\r\n</c>), or at the end of the string, as in <see cref="System.IO.TextReader.ReadLine"/>.</para>
         /// <para>A line terminator at the end of the string does not start a new line.</para>
-        /// <para><see langword="null"/> and the empty string have no lines.</para>
+        /// <para>A blank line is a line that is empty, or holds white-space characters alone,
+        /// as <see cref="char.IsWhiteSpace(char)"/> defines them.
+        /// This method ignores the blank lines at the start and at the end of the string,
+        /// and the rest of these remarks does not count them among the lines of the string.
+        /// A blank line between two other lines is not ignored.</para>
+        /// <para><see langword="null"/>, the empty string, and a string of blank lines alone have no lines.</para>
         /// <para>A string of more than (<paramref name="headLines"/> + <paramref name="tailLines"/> + 1) lines is clipped:
         /// <see cref="LineClipping.Head"/> holds its first <paramref name="headLines"/> lines,
         /// and <see cref="LineClipping.Tail"/> its last <paramref name="tailLines"/> lines.

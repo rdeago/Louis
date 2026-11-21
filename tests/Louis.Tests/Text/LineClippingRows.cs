@@ -2,6 +2,13 @@
 // See the LICENSE file in the project root for full license information.
 
 using Louis.Text;
+using BlankLinesRow = (
+    string Before,
+    string Text,
+    string After,
+    int HeadLines,
+    int TailLines,
+    (string Head, string Tail, int HeadLineCount, int TailLineCount, int OmittedLineCount) Expected);
 using LineClippingRow = (
     string Input,
     int HeadLines,
@@ -11,12 +18,16 @@ using LineClippingRow = (
 /// <summary>
 /// Holds the inputs that drive the tests of the <c>ComputeLineClipping</c> methods of <see cref="StringExtensions"/>
 /// and <see cref="CharReadOnlySpanExtensions"/>. The expected values of each row are the text of the head,
-/// which is at the start of the input, the text of the tail, which is at the end of the input, and the three line counts.
+/// the text of the tail, and the three line counts.
 /// The expected values are a tuple of their own, because the test framework does not unpack a row of eight values
 /// on .NET Framework.
 /// </summary>
 internal static class LineClippingRows
 {
+    /// <summary>
+    /// Returns the rows whose input neither starts nor ends with a blank line.
+    /// The head is at the start of the input, and the tail is at its end.
+    /// </summary>
     public static IEnumerable<LineClippingRow> All() => [
         // An empty text has no lines.
         (string.Empty, 2, 2, (string.Empty, string.Empty, 0, 0, 0)),
@@ -24,7 +35,6 @@ internal static class LineClippingRows
         // A line terminator at the end of the text starts no line.
         ("a", 2, 2, ("a", string.Empty, 1, 0, 0)),
         ("a\n", 2, 2, ("a\n", string.Empty, 1, 0, 0)),
-        ("\n", 2, 2, ("\n", string.Empty, 1, 0, 0)),
 
         // A text of at most headLines + tailLines + 1 lines is not clipped: the head holds all of its lines.
         ("a\nb\nc", 2, 2, ("a\nb\nc", string.Empty, 3, 0, 0)),
@@ -60,9 +70,40 @@ internal static class LineClippingRows
         ("a\nb\n\rc", 0, 2, (string.Empty, "\rc", 0, 2, 2)),
         ("a\rb\r\r\nc", 0, 2, (string.Empty, "\r\nc", 0, 2, 2)),
 
-        // An empty line is a line.
-        ("\n\n\n\n", 1, 1, ("\n", "\n", 1, 1, 2)),
-        ("\r\n\r\n\r\n\r\n", 1, 1, ("\r\n", "\r\n", 1, 1, 2)),
-        ("a\n\n\n", 0, 1, (string.Empty, "\n", 0, 1, 2)),
+        // A blank line between two other lines is a line.
+        ("a\n\n\n\nb", 1, 1, ("a\n", "b", 1, 1, 3)),
+        ("a\r\n\r\n\r\n\r\nb\r\n", 1, 1, ("a\r\n", "b\r\n", 1, 1, 3)),
+        ("a\n \n\t\nb", 0, 1, (string.Empty, "b", 0, 1, 3)),
+    ];
+
+    /// <summary>
+    /// Returns the rows whose input is a text between blank lines.
+    /// The head is at the start of the text, and the tail is at its end.
+    /// </summary>
+    public static IEnumerable<BlankLinesRow> BetweenBlankLines() => [
+        // The blank lines at the start and at the end of the input are in neither range, and in no line count.
+        ("\n", "a\nb\nc", string.Empty, 2, 2, ("a\nb\nc", string.Empty, 3, 0, 0)),
+        (string.Empty, "a\nb\nc\n", "\n", 2, 2, ("a\nb\nc\n", string.Empty, 3, 0, 0)),
+        ("\n\n", "a\nb\nc\nd\n", "\n\n", 1, 1, ("a\n", "d\n", 1, 1, 2)),
+        ("\r\n\r\n", "a\r\nb\r\nc\r\nd\r\n", "\r\r", 1, 1, ("a\r\n", "d\r\n", 1, 1, 2)),
+
+        // A line of white space alone is a blank line, also without a line terminator.
+        (" \n\t\n", "a\nb\nc\nd\n", " \t \n", 1, 1, ("a\n", "d\n", 1, 1, 2)),
+        (string.Empty, "a\nb\n", "  ", 2, 2, ("a\nb\n", string.Empty, 2, 0, 0)),
+
+        // White space is every character that char.IsWhiteSpace accepts, such as '\v' and '\f'.
+        ("\v\n", "a\n", "\f\n", 2, 2, ("a\n", string.Empty, 1, 0, 0)),
+
+        // The white space of a line that is not blank stays in the line.
+        ("\n", "  a  \n  b  ", string.Empty, 2, 2, ("  a  \n  b  ", string.Empty, 2, 0, 0)),
+        ("\n", "  a  \nb\nc\n  d  \n", "\n", 1, 1, ("  a  \n", "  d  \n", 1, 1, 2)),
+
+        // A blank line between two other lines is a line.
+        ("\n", "a\n\n\n\nb\n", "\n", 1, 1, ("a\n", "b\n", 1, 1, 3)),
+
+        // A head or a tail of no lines is an empty range, at the start or at the end of the text.
+        ("\n", "a\nb\nc\nd\n", "\n", 0, 2, (string.Empty, "c\nd\n", 0, 2, 2)),
+        ("\n", "a\nb\nc\nd\n", "\n", 2, 0, ("a\nb\n", string.Empty, 2, 0, 2)),
+        ("\n", "a\nb\n", "\n", 0, 0, (string.Empty, string.Empty, 0, 0, 2)),
     ];
 }

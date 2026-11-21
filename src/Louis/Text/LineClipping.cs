@@ -12,10 +12,12 @@ namespace Louis.Text;
 /// <remarks>
 /// <para><see cref="Head"/> and <see cref="Tail"/> are ranges of the text that <c>ComputeLineClipping</c> was called on.
 /// Each range includes the line terminators of its lines, as they appear in the text.</para>
-/// <para>When <see cref="OmittedLineCount"/> is 0, the text is not clipped: <see cref="Head"/> covers the whole text,
-/// and <see cref="Tail"/> is an empty range at the end of the text.
+/// <para>The <c>ComputeLineClipping</c> methods ignore the blank lines at the start and at the end of the text.
+/// The documentation of this type does not count them among the lines of the text.</para>
+/// <para>When <see cref="OmittedLineCount"/> is 0, the text is not clipped: <see cref="Head"/> covers every line of the text,
+/// and <see cref="Tail"/> is an empty range at the end of <see cref="Head"/>.
 /// <see cref="OmittedLineCount"/> is never 1, because no text is clipped by a single line.</para>
-/// <para>The default value describes an empty text.</para>
+/// <para>The default value describes a text that has no lines.</para>
 /// </remarks>
 /// <seealso cref="StringExtensions.ComputeLineClipping"/>
 /// <seealso cref="CharReadOnlySpanExtensions.ComputeLineClipping"/>
@@ -34,7 +36,7 @@ public readonly struct LineClipping : IEquatable<LineClipping>
     /// Gets the range of the first lines of the text.
     /// </summary>
     /// <value>
-    /// A range that starts at the start of the text and holds <see cref="HeadLineCount"/> lines.
+    /// A range that starts at the first line of the text and holds <see cref="HeadLineCount"/> lines.
     /// Both of its indexes count from the start of the text.
     /// </value>
     public Range Head { get; }
@@ -43,7 +45,7 @@ public readonly struct LineClipping : IEquatable<LineClipping>
     /// Gets the range of the last lines of the text.
     /// </summary>
     /// <value>
-    /// A range that ends at the end of the text and holds <see cref="TailLineCount"/> lines.
+    /// A range that ends after the last line of the text and holds <see cref="TailLineCount"/> lines.
     /// Both of its indexes count from the start of the text.
     /// </value>
     public Range Tail { get; }
