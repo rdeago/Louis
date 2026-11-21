@@ -34,10 +34,7 @@ partial class StringBuilderExtensions
         /// <para>If <paramref name="str"/> is <see langword="null"/>, the string <c>null</c>
         /// (without surrounding quotes) will be appended to <paramref name="this"/>.</para>
         /// </remarks>
-        public StringBuilder AppendClippedQuotedLiteral(
-            string? str,
-            int headLength,
-            int tailLength)
+        public StringBuilder AppendClippedQuotedLiteral(string? str, int headLength, int tailLength)
         {
             Guard.IsNotNull(@this, nameof(@this));
             Guard.IsGreaterThanOrEqualTo(headLength, 0);
@@ -106,10 +103,7 @@ partial class StringBuilderExtensions
         /// <para>- or -</para>
         /// <para><paramref name="tailLength"/> is less than 0.</para>
         /// </exception>
-        public StringBuilder AppendClippedQuotedLiteral(
-            ReadOnlySpan<char> chars,
-            int headLength,
-            int tailLength)
+        public StringBuilder AppendClippedQuotedLiteral(ReadOnlySpan<char> chars, int headLength, int tailLength)
         {
             Guard.IsNotNull(@this, nameof(@this));
             Guard.IsGreaterThanOrEqualTo(headLength, 0);
@@ -174,10 +168,7 @@ partial class StringBuilderExtensions
         /// <para>If <paramref name="str"/> is <see langword="null"/>, the string <c>null</c>
         /// (without surrounding quotes) will be appended to <paramref name="this"/>.</para>
         /// </remarks>
-        public StringBuilder AppendClippedVerbatimLiteral(
-            string? str,
-            int headLength,
-            int tailLength)
+        public StringBuilder AppendClippedVerbatimLiteral(string? str, int headLength, int tailLength)
         {
             Guard.IsNotNull(@this, nameof(@this));
             Guard.IsGreaterThanOrEqualTo(headLength, 0);
@@ -246,10 +237,7 @@ partial class StringBuilderExtensions
         /// <para>- or -</para>
         /// <para><paramref name="tailLength"/> is less than 0.</para>
         /// </exception>
-        public StringBuilder AppendClippedVerbatimLiteral(
-            ReadOnlySpan<char> chars,
-            int headLength,
-            int tailLength)
+        public StringBuilder AppendClippedVerbatimLiteral(ReadOnlySpan<char> chars, int headLength, int tailLength)
         {
             Guard.IsNotNull(@this, nameof(@this));
             Guard.IsGreaterThanOrEqualTo(headLength, 0);

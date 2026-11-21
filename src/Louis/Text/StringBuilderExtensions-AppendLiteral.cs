@@ -129,9 +129,7 @@ partial class StringBuilderExtensions
         /// <seealso cref="AppendQuotedLiteral(StringBuilder,ReadOnlySpan{char})"/>
         /// <seealso cref="AppendVerbatimLiteral(StringBuilder,ReadOnlySpan{char})"/>
         /// <seealso cref="StringLiteralKind"/>
-        public StringBuilder AppendLiteral(
-            StringLiteralKind literalKind,
-            ReadOnlySpan<char> chars)
+        public StringBuilder AppendLiteral(StringLiteralKind literalKind, ReadOnlySpan<char> chars)
         {
             Guard.IsNotNull(@this, nameof(@this));
             InternalGuard.IsDefinedStringLiteralKind(literalKind);
@@ -155,9 +153,7 @@ partial class StringBuilderExtensions
                         .Append('"');
         }
 
-        internal StringBuilder UnsafeAppendLiteral(
-            StringLiteralKind literalKind,
-            ReadOnlySpan<char> chars)
+        internal StringBuilder UnsafeAppendLiteral(StringLiteralKind literalKind, ReadOnlySpan<char> chars)
             => literalKind switch {
                 StringLiteralKind.Quoted => @this.UnsafeAppendQuotedLiteral(chars),
                 StringLiteralKind.Verbatim => @this.UnsafeAppendVerbatimLiteral(chars),

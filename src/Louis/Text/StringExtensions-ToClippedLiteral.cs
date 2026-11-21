@@ -36,10 +36,7 @@ partial class StringExtensions
         /// </exception>
         /// <seealso cref="ToClippedVerbatimLiteral"/>
         /// <seealso cref="ToClippedLiteral"/>
-        public string ToClippedQuotedLiteral(
-            int headLength,
-            int tailLength,
-            bool useUnicodeEllipsis = false)
+        public string ToClippedQuotedLiteral(int headLength, int tailLength, bool useUnicodeEllipsis = false)
         {
             Guard.IsGreaterThanOrEqualTo(headLength, 0);
             Guard.IsGreaterThanOrEqualTo(tailLength, 0);
@@ -74,10 +71,7 @@ partial class StringExtensions
         /// </exception>
         /// <seealso cref="ToClippedQuotedLiteral"/>
         /// <seealso cref="ToClippedLiteral"/>
-        public string ToClippedVerbatimLiteral(
-            int headLength,
-            int tailLength,
-            bool useUnicodeEllipsis = false)
+        public string ToClippedVerbatimLiteral(int headLength, int tailLength, bool useUnicodeEllipsis = false)
         {
             Guard.IsGreaterThanOrEqualTo(headLength, 0);
             Guard.IsGreaterThanOrEqualTo(tailLength, 0);

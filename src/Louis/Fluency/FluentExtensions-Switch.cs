@@ -36,9 +36,7 @@ partial class FluentExtensions
         /// <para>If <paramref name="value"/> is not equal to any of the values in <paramref name="cases"/>,
         /// this method returns immediately.</para>
         /// </remarks>
-        public T Switch<TValue>(
-            TValue value,
-            params (TValue Comparand, FluentAction<T>? Action)[] cases)
+        public T Switch<TValue>(TValue value, params (TValue Comparand, FluentAction<T>? Action)[] cases)
             => @this.Switch(EqualityComparer<TValue>.Default, value, null, cases);
 
         /// <summary>
@@ -234,10 +232,7 @@ partial class FluentExtensions
         /// <para>- or -</para>
         /// <para><paramref name="cases"/> is <see langword="null"/>.</para>
         /// </exception>
-        public T Switch<TValue>(
-            TValue value,
-            Action<T>? @default,
-            params (TValue Comparand, Action<T>? Action)[] cases)
+        public T Switch<TValue>(TValue value, Action<T>? @default, params (TValue Comparand, Action<T>? Action)[] cases)
             => @this.Switch(EqualityComparer<TValue>.Default, value, @default, cases);
 
         /// <summary>

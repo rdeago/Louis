@@ -77,11 +77,7 @@ partial class FluentExtensions
         /// <para>- or -</para>
         /// <para><paramref name="action"/> is <see langword="null"/>.</para>
         /// </exception>
-        public T InvokeIf<TArg1, TArg2>(
-            bool condition,
-            TArg1 arg1,
-            TArg2 arg2,
-            Action<T, TArg1, TArg2> action)
+        public T InvokeIf<TArg1, TArg2>(bool condition, TArg1 arg1, TArg2 arg2, Action<T, TArg1, TArg2> action)
         {
             Guard.IsNotNull(@this, nameof(@this));
             Guard.IsNotNull(action);
