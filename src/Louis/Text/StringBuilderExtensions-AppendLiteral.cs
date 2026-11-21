@@ -10,162 +10,158 @@ namespace Louis.Text;
 
 partial class StringBuilderExtensions
 {
-    /// <summary>
-    /// Appends the specified string, expressed as a C# quoted string literal, to the end
-    /// of this instance.
-    /// </summary>
     /// <param name="this">The <see cref="StringBuilder"/> on which this method is called.</param>
-    /// <param name="str">The string to append.</param>
-    /// <returns>A reference to this instance after the append operation has completed.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
-    /// <remarks>
-    /// <para>If <paramref name="str"/> is <see langword="null"/>, the string <c>null</c>
-    /// (without surrounding quotes) will be appended to <paramref name="this"/>.</para>
-    /// </remarks>
-    /// <seealso cref="AppendVerbatimLiteral(StringBuilder,string?)"/>
-    /// <seealso cref="AppendLiteral(StringBuilder,StringLiteralKind,string?)"/>
-    public static StringBuilder AppendQuotedLiteral(this StringBuilder @this, string? str)
+    extension(StringBuilder @this)
     {
-        Guard.IsNotNull(@this, nameof(@this));
+        /// <summary>
+        /// Appends the specified string, expressed as a C# quoted string literal, to the end
+        /// of this instance.
+        /// </summary>
+        /// <param name="str">The string to append.</param>
+        /// <returns>A reference to this instance after the append operation has completed.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// <para>If <paramref name="str"/> is <see langword="null"/>, the string <c>null</c>
+        /// (without surrounding quotes) will be appended to <paramref name="this"/>.</para>
+        /// </remarks>
+        /// <seealso cref="AppendVerbatimLiteral(StringBuilder,string?)"/>
+        /// <seealso cref="AppendLiteral(StringBuilder,StringLiteralKind,string?)"/>
+        public StringBuilder AppendQuotedLiteral(string? str)
+        {
+            Guard.IsNotNull(@this, nameof(@this));
 
-        return str is null
-            ? @this.Append(InternalConstants.QuotedNull)
-            : UnsafeAppendQuotedLiteral(@this, str.AsSpan());
+            return str is null
+                ? @this.Append(InternalConstants.QuotedNull)
+                : @this.UnsafeAppendQuotedLiteral(str.AsSpan());
+        }
+
+        /// <summary>
+        /// Appends the specified span of characters, expressed as a C# quoted string literal,
+        /// to the end of this instance.
+        /// </summary>
+        /// <param name="chars">The characters to append.</param>
+        /// <returns>A reference to this instance after the append operation has completed.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        /// <seealso cref="AppendVerbatimLiteral(StringBuilder,ReadOnlySpan{char})"/>
+        /// <seealso cref="AppendLiteral(StringBuilder,StringLiteralKind,ReadOnlySpan{char})"/>
+        public StringBuilder AppendQuotedLiteral(ReadOnlySpan<char> chars)
+        {
+            Guard.IsNotNull(@this, nameof(@this));
+
+            return @this.UnsafeAppendQuotedLiteral(chars);
+        }
+
+        /// <summary>
+        /// Appends the specified string, expressed as a C# verbatim string literal, to the end
+        /// of this instance.
+        /// </summary>
+        /// <param name="str">The string to append.</param>
+        /// <returns>A reference to this instance after the append operation has completed.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        /// <remarks>
+        /// <para>If <paramref name="str"/> is <see langword="null"/>, the string <c>null</c>
+        /// (without surrounding quotes) will be appended to <paramref name="this"/>.</para>
+        /// </remarks>
+        /// <seealso cref="AppendQuotedLiteral(StringBuilder,string?)"/>
+        /// <seealso cref="AppendLiteral(StringBuilder,StringLiteralKind,string?)"/>
+        public StringBuilder AppendVerbatimLiteral(string? str)
+        {
+            Guard.IsNotNull(@this, nameof(@this));
+
+            return str is null
+                ? @this.Append(InternalConstants.QuotedNull)
+                : @this.UnsafeAppendVerbatimLiteral(str.AsSpan());
+        }
+
+        /// <summary>
+        /// Appends the specified span of characters, expressed as a C# verbatim string literal,
+        /// to the end of this instance.
+        /// </summary>
+        /// <param name="chars">The characters to append.</param>
+        /// <returns>A reference to this instance after the append operation has completed.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        /// <seealso cref="AppendQuotedLiteral(StringBuilder,ReadOnlySpan{char})"/>
+        /// <seealso cref="AppendLiteral(StringBuilder,StringLiteralKind,ReadOnlySpan{char})"/>
+        public StringBuilder AppendVerbatimLiteral(ReadOnlySpan<char> chars)
+        {
+            Guard.IsNotNull(@this, nameof(@this));
+
+            return @this.UnsafeAppendVerbatimLiteral(chars);
+        }
+
+        /// <summary>
+        /// Appends the specified string, expressed as a C# string literal, to the end of this instance.
+        /// </summary>
+        /// <param name="literalKind">A <see cref="StringLiteralKind"/> constant specifying the kind of string literal
+        /// to append.</param>
+        /// <param name="str">The string to append.</param>
+        /// <returns>A reference to this instance after the append operation has completed.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="literalKind"/> is neither <see cref="StringLiteralKind.Quoted"/>
+        /// nor <see cref="StringLiteralKind.Verbatim"/>.</exception>
+        /// <remarks>
+        /// <para>If <paramref name="str"/> is <see langword="null"/>, the string <c>null</c>
+        /// (without surrounding quotes) will be appended to <paramref name="this"/>.</para>
+        /// </remarks>
+        /// <seealso cref="AppendQuotedLiteral(StringBuilder,string?)"/>
+        /// <seealso cref="AppendVerbatimLiteral(StringBuilder,string?)"/>
+        /// <seealso cref="StringLiteralKind"/>
+        public StringBuilder AppendLiteral(StringLiteralKind literalKind, string? str)
+        {
+            Guard.IsNotNull(@this, nameof(@this));
+            InternalGuard.IsDefinedStringLiteralKind(literalKind);
+
+            return str is null
+                ? @this.Append(InternalConstants.QuotedNull)
+                : @this.UnsafeAppendLiteral(literalKind, str.AsSpan());
+        }
+
+        /// <summary>
+        /// Appends the specified span of characters, expressed as a C# string literal, to the end of this instance.
+        /// </summary>
+        /// <param name="literalKind">A <see cref="StringLiteralKind"/> constant specifying the kind of string literal
+        /// to append.</param>
+        /// <param name="chars">The characters to append.</param>
+        /// <returns>A reference to this instance after the append operation has completed.</returns>
+        /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
+        /// <exception cref="ArgumentException"><paramref name="literalKind"/> is neither <see cref="StringLiteralKind.Quoted"/>
+        /// nor <see cref="StringLiteralKind.Verbatim"/>.</exception>
+        /// <seealso cref="AppendQuotedLiteral(StringBuilder,ReadOnlySpan{char})"/>
+        /// <seealso cref="AppendVerbatimLiteral(StringBuilder,ReadOnlySpan{char})"/>
+        /// <seealso cref="StringLiteralKind"/>
+        public StringBuilder AppendLiteral(
+            StringLiteralKind literalKind,
+            ReadOnlySpan<char> chars)
+        {
+            Guard.IsNotNull(@this, nameof(@this));
+            InternalGuard.IsDefinedStringLiteralKind(literalKind);
+
+            return @this.UnsafeAppendLiteral(literalKind, chars);
+        }
+
+        internal StringBuilder UnsafeAppendQuotedLiteral(ReadOnlySpan<char> chars)
+        {
+            @this.EnsureCapacity(@this.Length + 2 + chars.Length);
+            return @this.Append('"')
+                        .AppendQuotedLiteralCore(chars)
+                        .Append('"');
+        }
+
+        internal StringBuilder UnsafeAppendVerbatimLiteral(ReadOnlySpan<char> chars)
+        {
+            @this.EnsureCapacity(@this.Length + 3 + chars.Length);
+            return @this.Append(@"@""")
+                        .AppendVerbatimLiteralCore(chars)
+                        .Append('"');
+        }
+
+        internal StringBuilder UnsafeAppendLiteral(
+            StringLiteralKind literalKind,
+            ReadOnlySpan<char> chars)
+            => literalKind switch {
+                StringLiteralKind.Quoted => @this.UnsafeAppendQuotedLiteral(chars),
+                StringLiteralKind.Verbatim => @this.UnsafeAppendVerbatimLiteral(chars),
+                _ => @this,
+            };
     }
-
-    /// <summary>
-    /// Appends the specified span of characters, expressed as a C# quoted string literal,
-    /// to the end of this instance.
-    /// </summary>
-    /// <param name="this">The <see cref="StringBuilder"/> on which this method is called.</param>
-    /// <param name="chars">The characters to append.</param>
-    /// <returns>A reference to this instance after the append operation has completed.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
-    /// <seealso cref="AppendVerbatimLiteral(StringBuilder,ReadOnlySpan{char})"/>
-    /// <seealso cref="AppendLiteral(StringBuilder,StringLiteralKind,ReadOnlySpan{char})"/>
-    public static StringBuilder AppendQuotedLiteral(this StringBuilder @this, ReadOnlySpan<char> chars)
-    {
-        Guard.IsNotNull(@this, nameof(@this));
-
-        return UnsafeAppendQuotedLiteral(@this, chars);
-    }
-
-    /// <summary>
-    /// Appends the specified string, expressed as a C# verbatim string literal, to the end
-    /// of this instance.
-    /// </summary>
-    /// <param name="this">The <see cref="StringBuilder"/> on which this method is called.</param>
-    /// <param name="str">The string to append.</param>
-    /// <returns>A reference to this instance after the append operation has completed.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
-    /// <remarks>
-    /// <para>If <paramref name="str"/> is <see langword="null"/>, the string <c>null</c>
-    /// (without surrounding quotes) will be appended to <paramref name="this"/>.</para>
-    /// </remarks>
-    /// <seealso cref="AppendQuotedLiteral(StringBuilder,string?)"/>
-    /// <seealso cref="AppendLiteral(StringBuilder,StringLiteralKind,string?)"/>
-    public static StringBuilder AppendVerbatimLiteral(this StringBuilder @this, string? str)
-    {
-        Guard.IsNotNull(@this, nameof(@this));
-
-        return str is null
-            ? @this.Append(InternalConstants.QuotedNull)
-            : UnsafeAppendVerbatimLiteral(@this, str.AsSpan());
-    }
-
-    /// <summary>
-    /// Appends the specified span of characters, expressed as a C# verbatim string literal,
-    /// to the end of this instance.
-    /// </summary>
-    /// <param name="this">The <see cref="StringBuilder"/> on which this method is called.</param>
-    /// <param name="chars">The characters to append.</param>
-    /// <returns>A reference to this instance after the append operation has completed.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
-    /// <seealso cref="AppendQuotedLiteral(StringBuilder,ReadOnlySpan{char})"/>
-    /// <seealso cref="AppendLiteral(StringBuilder,StringLiteralKind,ReadOnlySpan{char})"/>
-    public static StringBuilder AppendVerbatimLiteral(this StringBuilder @this, ReadOnlySpan<char> chars)
-    {
-        Guard.IsNotNull(@this, nameof(@this));
-
-        return UnsafeAppendVerbatimLiteral(@this, chars);
-    }
-
-    /// <summary>
-    /// Appends the specified string, expressed as a C# string literal, to the end of this instance.
-    /// </summary>
-    /// <param name="this">The <see cref="StringBuilder"/> on which this method is called.</param>
-    /// <param name="literalKind">A <see cref="StringLiteralKind"/> constant specifying the kind of string literal
-    /// to append.</param>
-    /// <param name="str">The string to append.</param>
-    /// <returns>A reference to this instance after the append operation has completed.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException"><paramref name="literalKind"/> is neither <see cref="StringLiteralKind.Quoted"/>
-    /// nor <see cref="StringLiteralKind.Verbatim"/>.</exception>
-    /// <remarks>
-    /// <para>If <paramref name="str"/> is <see langword="null"/>, the string <c>null</c>
-    /// (without surrounding quotes) will be appended to <paramref name="this"/>.</para>
-    /// </remarks>
-    /// <seealso cref="AppendQuotedLiteral(StringBuilder,string?)"/>
-    /// <seealso cref="AppendVerbatimLiteral(StringBuilder,string?)"/>
-    /// <seealso cref="StringLiteralKind"/>
-    public static StringBuilder AppendLiteral(this StringBuilder @this, StringLiteralKind literalKind, string? str)
-    {
-        Guard.IsNotNull(@this, nameof(@this));
-        InternalGuard.IsDefinedStringLiteralKind(literalKind);
-
-        return str is null
-            ? @this.Append(InternalConstants.QuotedNull)
-            : UnsafeAppendLiteral(@this, literalKind, str.AsSpan());
-    }
-
-    /// <summary>
-    /// Appends the specified span of characters, expressed as a C# string literal, to the end of this instance.
-    /// </summary>
-    /// <param name="this">The <see cref="StringBuilder"/> on which this method is called.</param>
-    /// <param name="literalKind">A <see cref="StringLiteralKind"/> constant specifying the kind of string literal
-    /// to append.</param>
-    /// <param name="chars">The characters to append.</param>
-    /// <returns>A reference to this instance after the append operation has completed.</returns>
-    /// <exception cref="ArgumentNullException"><paramref name="this"/> is <see langword="null"/>.</exception>
-    /// <exception cref="ArgumentException"><paramref name="literalKind"/> is neither <see cref="StringLiteralKind.Quoted"/>
-    /// nor <see cref="StringLiteralKind.Verbatim"/>.</exception>
-    /// <seealso cref="AppendQuotedLiteral(StringBuilder,ReadOnlySpan{char})"/>
-    /// <seealso cref="AppendVerbatimLiteral(StringBuilder,ReadOnlySpan{char})"/>
-    /// <seealso cref="StringLiteralKind"/>
-    public static StringBuilder AppendLiteral(
-        this StringBuilder @this,
-        StringLiteralKind literalKind,
-        ReadOnlySpan<char> chars)
-    {
-        Guard.IsNotNull(@this, nameof(@this));
-        InternalGuard.IsDefinedStringLiteralKind(literalKind);
-
-        return UnsafeAppendLiteral(@this, literalKind, chars);
-    }
-
-    internal static StringBuilder UnsafeAppendQuotedLiteral(this StringBuilder @this, ReadOnlySpan<char> chars)
-    {
-        @this.EnsureCapacity(@this.Length + 2 + chars.Length);
-        return @this.Append('"')
-                    .AppendQuotedLiteralCore(chars)
-                    .Append('"');
-    }
-
-    internal static StringBuilder UnsafeAppendVerbatimLiteral(this StringBuilder @this, ReadOnlySpan<char> chars)
-    {
-        @this.EnsureCapacity(@this.Length + 3 + chars.Length);
-        return @this.Append(@"@""")
-                    .AppendVerbatimLiteralCore(chars)
-                    .Append('"');
-    }
-
-    internal static StringBuilder UnsafeAppendLiteral(
-        this StringBuilder @this,
-        StringLiteralKind literalKind,
-        ReadOnlySpan<char> chars)
-        => literalKind switch {
-            StringLiteralKind.Quoted => UnsafeAppendQuotedLiteral(@this, chars),
-            StringLiteralKind.Verbatim => UnsafeAppendVerbatimLiteral(@this, chars),
-            _ => @this,
-        };
 }

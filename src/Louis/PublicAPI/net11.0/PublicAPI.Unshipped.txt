@@ -165,6 +165,18 @@ Louis.Processes.ProcessRunOptions.ThrowOnNonZeroExitCode.get -> bool
 Louis.Processes.ProcessRunOptions.ThrowOnNonZeroExitCode.init -> void
 Louis.Processes.ProcessRunOptions.WorkingDirectory.get -> string?
 Louis.Processes.ProcessRunOptions.WorkingDirectory.init -> void
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>)
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ApplyEdits(System.Collections.Generic.IEnumerable<Louis.Text.TextEdit>! edits) -> string!
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ComputeLineClipping(int headLines, int tailLines) -> Louis.Text.LineClipping
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ComputeLiteralLength(Louis.Text.StringLiteralKind literalKind) -> int
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ComputeQuotedLiteralLength() -> int
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ComputeVerbatimLiteralLength() -> int
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ToClippedLiteral(Louis.Text.StringLiteralKind literalKind, int headLength, int tailLength, bool useUnicodeEllipsis = false) -> string!
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ToClippedQuotedLiteral(int headLength, int tailLength, bool useUnicodeEllipsis = false) -> string!
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ToClippedVerbatimLiteral(int headLength, int tailLength, bool useUnicodeEllipsis = false) -> string!
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ToLiteral(Louis.Text.StringLiteralKind literalKind) -> string!
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ToQuotedLiteral() -> string!
+Louis.Text.CharReadOnlySpanExtensions.extension(System.ReadOnlySpan<char>).ToVerbatimLiteral() -> string!
 Louis.Text.FalseConditionInterpolatedStringHandler
 Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted(object? value, int alignment = 0, string? format = null) -> void
 Louis.Text.FalseConditionInterpolatedStringHandler.AppendFormatted(string? value) -> void
@@ -187,6 +199,40 @@ Louis.Text.LineClipping.LineClipping() -> void
 Louis.Text.LineClipping.OmittedLineCount.get -> int
 Louis.Text.LineClipping.Tail.get -> System.Range
 Louis.Text.LineClipping.TailLineCount.get -> int
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!)
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedLiteral(Louis.Text.StringLiteralKind literalKind, string? str, int headLength, int tailLength) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedLiteral(Louis.Text.StringLiteralKind literalKind, string? str, int headLength, int tailLength, bool useUnicodeEllipsis) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedLiteral(Louis.Text.StringLiteralKind literalKind, System.ReadOnlySpan<char> chars, int headLength, int tailLength) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedLiteral(Louis.Text.StringLiteralKind literalKind, System.ReadOnlySpan<char> chars, int headLength, int tailLength, bool useUnicodeEllipsis) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedQuotedLiteral(string? str, int headLength, int tailLength) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedQuotedLiteral(string? str, int headLength, int tailLength, bool useUnicodeEllipsis) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedQuotedLiteral(System.ReadOnlySpan<char> chars, int headLength, int tailLength) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedQuotedLiteral(System.ReadOnlySpan<char> chars, int headLength, int tailLength, bool useUnicodeEllipsis) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedVerbatimLiteral(string? str, int headLength, int tailLength) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedVerbatimLiteral(string? str, int headLength, int tailLength, bool useUnicodeEllipsis) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedVerbatimLiteral(System.ReadOnlySpan<char> chars, int headLength, int tailLength) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendClippedVerbatimLiteral(System.ReadOnlySpan<char> chars, int headLength, int tailLength, bool useUnicodeEllipsis) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendLiteral(Louis.Text.StringLiteralKind literalKind, string? str) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendLiteral(Louis.Text.StringLiteralKind literalKind, System.ReadOnlySpan<char> chars) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendQuotedLiteral(string? str) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendQuotedLiteral(System.ReadOnlySpan<char> chars) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendResult(Louis.ReadOnlySpanFunc<char>! func) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendResult(System.Func<string?>! provider) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendVerbatimLiteral(string? str) -> System.Text.StringBuilder!
+Louis.Text.StringBuilderExtensions.extension(System.Text.StringBuilder!).AppendVerbatimLiteral(System.ReadOnlySpan<char> chars) -> System.Text.StringBuilder!
+Louis.Text.StringExtensions.extension(string!)
+Louis.Text.StringExtensions.extension(string!).ApplyEdits(System.Collections.Generic.IEnumerable<Louis.Text.TextEdit>! edits) -> string!
+Louis.Text.StringExtensions.extension(string?)
+Louis.Text.StringExtensions.extension(string?).ComputeLineClipping(int headLines, int tailLines) -> Louis.Text.LineClipping
+Louis.Text.StringExtensions.extension(string?).ComputeLiteralLength(Louis.Text.StringLiteralKind literalKind) -> int
+Louis.Text.StringExtensions.extension(string?).ComputeQuotedLiteralLength() -> int
+Louis.Text.StringExtensions.extension(string?).ComputeVerbatimLiteralLength() -> int
+Louis.Text.StringExtensions.extension(string?).ToClippedLiteral(Louis.Text.StringLiteralKind literalKind, int headLength, int tailLength, bool useUnicodeEllipsis = false) -> string!
+Louis.Text.StringExtensions.extension(string?).ToClippedQuotedLiteral(int headLength, int tailLength, bool useUnicodeEllipsis = false) -> string!
+Louis.Text.StringExtensions.extension(string?).ToClippedVerbatimLiteral(int headLength, int tailLength, bool useUnicodeEllipsis = false) -> string!
+Louis.Text.StringExtensions.extension(string?).ToLiteral(Louis.Text.StringLiteralKind literalKind) -> string!
+Louis.Text.StringExtensions.extension(string?).ToQuotedLiteral() -> string!
+Louis.Text.StringExtensions.extension(string?).ToVerbatimLiteral() -> string!
 Louis.Text.TextEdit
 Louis.Text.TextEdit.Equals(Louis.Text.TextEdit other) -> bool
 Louis.Text.TextEdit.Length.get -> int
