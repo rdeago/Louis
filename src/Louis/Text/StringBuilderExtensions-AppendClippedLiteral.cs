@@ -467,13 +467,13 @@ partial class StringBuilderExtensions
             var unclippedLength = (uint)headLength + (uint)tailLength;
             if (unclippedLength >= int.MaxValue)
             {
-                return @this.AppendQuotedLiteral(chars);
+                return @this.UnsafeAppendQuotedLiteral(chars);
             }
 
             var ellipsisLength = useUnicodeEllipsis ? 1U : 3U;
             if (unsignedLength <= unclippedLength + ellipsisLength)
             {
-                return @this.AppendQuotedLiteral(chars);
+                return @this.UnsafeAppendQuotedLiteral(chars);
             }
 
             var tailStart = chars.Length - tailLength;
@@ -495,13 +495,13 @@ partial class StringBuilderExtensions
             var unclippedLength = (uint)headLength + (uint)tailLength;
             if (unclippedLength >= int.MaxValue)
             {
-                return @this.AppendVerbatimLiteral(chars);
+                return @this.UnsafeAppendVerbatimLiteral(chars);
             }
 
             var ellipsisLength = useUnicodeEllipsis ? 1U : 3U;
             if (unsignedLength <= unclippedLength + ellipsisLength)
             {
-                return @this.AppendVerbatimLiteral(chars);
+                return @this.UnsafeAppendVerbatimLiteral(chars);
             }
 
             var tailStart = chars.Length - tailLength;
@@ -520,8 +520,8 @@ partial class StringBuilderExtensions
             int tailLength,
             bool useUnicodeEllipsis)
             => literalKind switch {
-                StringLiteralKind.Quoted => @this.AppendClippedQuotedLiteral(chars, headLength, tailLength, useUnicodeEllipsis),
-                StringLiteralKind.Verbatim => @this.AppendClippedVerbatimLiteral(chars, headLength, tailLength, useUnicodeEllipsis),
+                StringLiteralKind.Quoted => @this.UnsafeAppendClippedQuotedLiteral(chars, headLength, tailLength, useUnicodeEllipsis),
+                StringLiteralKind.Verbatim => @this.UnsafeAppendClippedVerbatimLiteral(chars, headLength, tailLength, useUnicodeEllipsis),
                 _ => @this,
             };
 
